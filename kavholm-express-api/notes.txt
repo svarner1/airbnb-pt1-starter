@@ -1,0 +1,18 @@
+Make the following additions to the models/booking.test.js file:
+
+ ✅ First add a new describe grouping inside the describe Booking grouping. It should describe Test createBooking.
+ 
+ ✅ Inside the Test createBooking grouping, add two new test cases:
+    Test Can create a new booking with valid params
+        ✅ It should create a dummy user object containing only the username property equal to jlo
+        Then it should select one of the listing ids from the testListingIds array. 
+            Look at the values for that listing in the tests/createListings.js file.
+        It should then use the Listing model to fetch that listing.
+        Next, it should create a newBooking object with startDate, endDate, and guests properties
+        Then it should use the createBooking method on the Booking model to create a new booking using the newBooking object
+            , listing, and user.
+        Finally, it should check that the booking returned by that method is equal to an expected booking, 
+            containing the
+            properties: id, startDate, endDate, paymentMethod, guests, listingId, username, userId, and 
+                createdAt. 
+            Use exact values or expect.any matchers when necessary.

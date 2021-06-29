@@ -8,6 +8,7 @@ const {
   commonAfterAll,
   testListingIds,
 } = require("../tests/common")
+const { createBookings } = require("../tests/createBookings")
 
 beforeAll(commonBeforeAll)
 beforeEach(commonBeforeEach)
@@ -15,6 +16,38 @@ afterEach(commonAfterEach)
 afterAll(commonAfterAll)
 
 describe("Booking", () => {
+  describe("Test createBooking", () => {
+    test("Can create a new booking with valid params", async () => {
+      const user = { username: "jlo"}
+      //Then it should select one of the listing ids from the testListingIds array. 
+      const listingId = testListingIds[1]
+      //It should then use the Listing model to fetch that listing.
+      const listing = await Listing.fetchListingById(listingId)
+      //Next, it should create a newBooking object with startDate, endDate, and guests properties
+      const newBooking = {
+        startDate: "07-04-2021",
+        endDate: "07-17-2021", 
+        guests: 5
+      }
+      // Then it should use the createBooking method on the Booking model to create a new booking 
+      // using the newBooking object, listing, and user.
+      newBooking.createBookings(user, listing)
+
+      expect(booking).toEqual({
+        id: expect.any(Number),
+        startDate: new Date("07-04-2021"),
+        endDate: new Date("07-17-2021") ,
+        paymentMethod: "card",
+        guests: expect.any(Number),
+        listingId: listingId ,
+        username: user.username ,
+        userId: expect.any(Number) ,
+        createdAt: expect.any(Date)
+      })
+
+    })
+  })
+
   describe("Test listBookingsFromUser", () => {
     test("Fetches all of the authenticated users' bookings", async () => {
       const user = { username: "jlo" }
